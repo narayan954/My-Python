@@ -6,7 +6,8 @@ Created on Wed May  5 19:11:11 2021
 """
 
 """
-A simple/direct approach to the game o' nimm
+A game of nimm program which can be played again and again until we want with a simple Y input(for YES) and also, making 
+error in between the game restarts it so we dont have to run the program again and again .
 """
 
 def The_real_game():
