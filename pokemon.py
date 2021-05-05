@@ -1,5 +1,5 @@
 from karel.stanfordkarel import *
-#pikachu i choose you!
+#pikachu i choose you for this! 
 def main():
     row_1()
     next_row_left()
