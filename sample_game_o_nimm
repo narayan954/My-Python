@@ -1,0 +1,162 @@
+#---------------------
+#      NIM GAME
+#---------------------
+
+import random
+import time
+
+def welcome_message():
+    print("""
+----------------------------------------------------------------------------
+                        WELCOME TO THE GAME OF NIM!
+----------------------------------------------------------------------------
+Rules: 1 - The user plays against the computer.
+       2 - Only 1-3 sticks can be taken at a time.
+       3 - The person who is left with the last stick is the loser.
+       4 - Have FUN!
+----------------------------------------------------------------------------
+""")
+
+def display_board(board):
+    print("\n----------------------------------------------------------------------------")
+    print("      ",*board, sep="   ")
+    print("----------------------------------------------------------------------------\n")
+
+def who_starts(question):
+    choice = None
+    while choice not in ("F", "S","f","s"):
+        choice = input(question)
+        if choice.upper() == "F":
+            f_player = "USER"
+            s_player = "USER"
+        elif choice.upper() == "S":
+            f_player = "CMP"
+            s_player  = "CMP"
+        else:
+            print("\nInvalid choice. Please re-enter your choice.")
+
+    return f_player, s_player
+
+def users_pick(question,minStick,maxStick,userIn,board):
+    print("\n--USER'S TURN--")
+    while userIn not in range(minStick, maxStick) or userIn >= len(board):
+        try:
+            userIn = int(input(question))
+            if userIn not in range(minStick, maxStick) or userIn >= len(board):
+                print("\nYou can cannot choose that many sticks!")
+                userIn = int(input(question))
+
+        except Exception as e:
+            print("\nAn error has occured.\nError: " + str(e) + "\nPlease re-enter your choice.")
+
+    f_player = "CMP"
+
+    return userIn, f_player
+
+def update_board(board,move):
+    valid_moves = (1,2)
+    if len(board) > move:
+        for i in  range(move):
+            board.remove("/")
+        return board
+    elif len(board) <= move:
+        if move in valid_moves:
+            for i in range(move):
+                board.remove("/")
+            return board
+        else:
+            print("\n" + str(move) + " sticks cannot be taken.\nThe move you made was inavalid. Please  re-enter.")
+            return board
+
+def computers_move(board,userIn,s_player,winning_position,earlier_move):
+    best_move = 1
+    print("\n--COMPUTER'S TURN--")
+
+    if s_player == "CMP" and winning_position == False:
+        if len(board) % 4 ==1:
+            best_move = 0
+            while best_move not in range(1,len(board)+1):
+                best_move = random.randint(1,3)
+        else:
+            if userIn + earlier_move < 4:
+                best_move = 4 - (userIn + earlier_move)
+                winning_position = True
+            elif userIn + earlier_move > 4:
+                best_move = 8 - (userIn + earlier_move)
+                winning_position = True
+
+    elif s_player == "USER" or winning_position == True:
+        best_move = 4 - userIn
+
+    earlier_move = best_move
+
+    print("\nThe computer chooses to remove...")
+    time.sleep(1)
+    print(": " + str(best_move) + " stick(s).")
+    for sticks in range(best_move):
+        board.remove("/")
+
+    f_player = "USER"
+    return board, f_player, winning_position, earlier_move
+
+def game_over(board,f_player):
+    if len(board) == 1 and f_player == "USER":
+        winner = "COMPUTER"
+        loser = "USER"
+    elif len(board) == 1 and f_player == "CMP":
+        winner = "USER"
+        loser = "COMPUTER"
+    else:
+        winner = None
+
+    return winner, loser
+
+def keepPlaying():
+    while True:
+        another_go = input("\nDo you want to play again?[Y/N]: ")
+        if another_go in ("y","Y"):
+            return True
+        elif another_go in ("n","N"):
+            return False
+        else:
+            print("\nInavlid choice. Please re-enter.")
+
+def main():
+    anotherGo = True
+    welcome_message()
+    while anotherGo == True:
+        earlier_move = 0
+        winning_position = False
+        nimBoard = ["/","/","/","/","/","/","/","/","/","/","/","/","/","/","/","/","/"]
+        winner = None
+        userIn = 0
+        print("----------------------------------------------------------------------------")
+        display_board(nimBoard)
+        print("\nWe begin with " + str(len(nimBoard)) + " sticks.")
+        f_player, s_player = who_starts("\nDo you want to start first or second? [F for fisrt/S for second]: ")
+        while len(nimBoard) != 1:
+            if f_player == "USER":
+                time.sleep(0.5)
+                userIn,f_player = users_pick("\nEnter your choice [1, 2 or 3]: ", 1, 4, 20,nimBoard)
+                nimBoard = update_board(nimBoard,userIn)
+                display_board(nimBoard)
+                print("\nThere are " + str(len(nimBoard)) + " stick(s) remaining.")
+            else:
+                time.sleep(1)
+                nimBoard, f_player,winning_position, earlier_move = computers_move(nimBoard,userIn,s_player,winning_position,earlier_move)
+                time.sleep(1)
+                display_board(nimBoard)
+                print("\nThere are " + str(len(nimBoard)) + " stick(s) remaining.")
+        time.sleep(1)
+        print("\nFinally...\nOnly one stick remains...")
+        game_winner, game_loser = game_over(nimBoard,f_player)
+        time.sleep(1)
+        print("\nThe " + game_loser + " is left with the last stick and so he is the loser...")
+        print("\nThe winner of the game is...\n: " + str(game_winner))
+        anotherGo = keepPlaying()
+        time.sleep(1)
+    print("\nThank you for playing!")
+    print("\n--GAME OVER--")
+
+if __name__ ==  "__main__":
+    main()
