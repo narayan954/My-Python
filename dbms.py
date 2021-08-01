@@ -1,5 +1,49 @@
 #In need of some modifications , both fresh and old
+'''
+Q. [Students Record Manager]:
+Develop a system to maintain students' record.
+ A student has following attributes:
 
+Name, Roll number, Year, Department, CGPA.
+
+All of these attributes should be private. Provide set and get methods for each attribute. 
+In the end, draw a class diagram of your system.
+
+In the constructor, set default values of department to "CS" and Year to 2.
+
+Your system should provide following functionalities:
+
+A. Add a student
+
+B. Update information of a student (value of any attribute could be changed)
+
+C. Delete a student
+
+D. Search a student on the basis of a name or roll number
+
+E. Display data of all the students
+
+F. Display data of students belonging to the same department
+
+G. Display data of student having CGP less than n, take n as input.
+
+H. Display data of student having CGP greater than or equal to n. take n as input.
+
+I. Display count of students enrolled in a given year Y. Take Y as input.
+
+J. Display data of student having roll number R. Take R as input.
+
+K. Display count of Student's objects.
+
+L. Exit the program.
+
+Provide a menu to drive your developed system. Take inputs from A-L.
+ For example, if user enters A. then take attributes of student as input,
+ create student object using those values and add this object in the students list.
+ Similarly, if a user enters C, then ask for the name or roll number of the student
+ to be deleted from the list. If the student with given roll number does not exist
+ in the list then print that the given student is not present in the list otherwise delete it.
+'''
 
 class Student:
     # intitially class variable with a value -1 to compensate for the first object
