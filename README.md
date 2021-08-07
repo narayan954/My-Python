@@ -1,3 +1,3 @@
 # MyPython
-''' i am new here to github so i made this repository where i will update my python programs  '''
+''' Some of my python programs are stored here '''
 # Thank you for visiting
