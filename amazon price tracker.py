@@ -2,16 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import smtplib
 
-url = 'Paste your product url here'
+url = 'Paste your url here'
 headers = {'user-agent': 'Paste your user agent'}
-
+normal_price = 39999 
 
 def send_mail():
     server = smtplib.SMTP(
         'smtp.gmail.com',
         587
     )
-    
     server.ehlo()
     server.starttls()
     server.ehlo()
@@ -31,9 +30,7 @@ def send_mail():
         'Here write the mail where you want to send the message',
         msg
     )
-    
     print('Mail has been sent')
-    
     server.quit()
 
 
@@ -61,12 +58,12 @@ def check_price():
     print(f'Your product is: {title}')
     print(f"Product's price is {price}")
 
-    if converted_price < 39999:
+    if converted_price < normal_price:
         print(f"Yay! Price fell down \nNew price is : {price}")
         send_mail()
 
     else:
-        print("Price has gone up." if converted_price > 39999 else "Price is still the same")
+        print("Price has gone up." if converted_price > normal_price else "Price is still the same")
 
 
 check_price()
