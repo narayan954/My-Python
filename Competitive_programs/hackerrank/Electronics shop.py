@@ -12,11 +12,9 @@ def getMoneySpent(keyboards, drives, b):
         for d_price in drives:
             ls.append(kb_price + d_price)
     ls.sort()
-    temp = 0
-    for i in ls:
-        if i > b and temp != 0:
-            return temp
-        temp = i
+    for i in range(len(ls)):
+        if ls[i] > b and i != 0:
+            return ls[i-1]
     return -1
     
 if __name__ == '__main__':
