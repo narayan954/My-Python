@@ -3,6 +3,7 @@
 import os
 import sys
 
+
 #
 # Complete the getMoneySpent function below.
 #
@@ -12,13 +13,15 @@ def getMoneySpent(keyboards, drives, b):
         for d_price in drives:
             ls.append(kb_price + d_price)
     ls.sort()
-    for i in range(len(ls)):
-        if ls[i] > b and i != 0:
-            return ls[i-1]
-    return -1
-    
+    if ls[0] > b:
+        return -1
+    else:
+        for i in range(len(ls)):
+            if ls[i] > b:
+                return ls[i - 1]
+
+
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
     bnm = input().split()
 
@@ -38,6 +41,5 @@ if __name__ == '__main__':
 
     moneySpent = getMoneySpent(keyboards, drives, b)
 
-    fptr.write(str(moneySpent) + '\n')
+    print(str(moneySpent) + '\n')
 
-    fptr.close()
