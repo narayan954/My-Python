@@ -8,18 +8,7 @@ import sys
 # Complete the getMoneySpent function below.
 #
 def getMoneySpent(keyboards, drives, b):
-    ls = []
-    for kb_price in keyboards:
-        for d_price in drives:
-            ls.append(kb_price + d_price)
-    ls.sort()
-    if ls[0] > b:
-        return -1
-    else:
-        for i in range(len(ls)):
-            if ls[i] > b:
-                return ls[i - 1]
-
+    return max([sum([x,y]) for x in keyboards for y in drives if sum([x,y]) <= s]+[-1])
 
 if __name__ == '__main__':
 
