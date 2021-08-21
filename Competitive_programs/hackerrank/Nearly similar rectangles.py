@@ -1,3 +1,4 @@
+#TLE
 """
 def nearlySimilarRectangles(sides):
     c = 0
@@ -7,8 +8,8 @@ def nearlySimilarRectangles(sides):
                 c += 1
     return c
 """
-
-
+#TLE
+"""
 def nearlySimilarRectangles(sides):
     ls = []
     c = 0
@@ -19,6 +20,21 @@ def nearlySimilarRectangles(sides):
             if ls[i] == ls[j]:
                 c += 1
     return c
+"""
+def nearlySimilarRectangles(sides):
+    totalSides = len(sides)
+    freq = {}
+    ns = 0
+    for side in sides:
+        ratio = side[0]/side[1]
+        if freq.get(ratio) is None:
+            freq[ratio] = 1
+        else:
+            freq[ratio] += 1
+    for k,v in freq.items():
+        if v!=1:
+            ns += int(math.factorial(v)/(math.factorial(v-2)*math.factorial(2)))
+    return ns
 
 
 if __name__ == '__main__':
