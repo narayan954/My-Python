@@ -68,8 +68,9 @@ Let the new sorted letters be P. We can split the sorted letters into two halves
 
 
 Example solution.
+"""
 (https://codejam.googleapis.com/dashboard/get_file/AQj_6U3tHkpII-DiVV14qHDn4fs3dlv73yVYuZZdyLeS2FQrWl2Cply7Gn7jErvIy4gz1oG48SRyfrXDMojF3w/analysis_diagram.png)
-
+"""
 This works because we know that no more than half the characters are equal, and hence the character at P[i] cannot be equal to the letter at P[i+(N2)].
 
 This can be performed in O(NlogN), due to sorting. However, due to the limited size of the alphabet, we can actually sort even faster using a non-comparative sorting algorithm such as counting sort.
