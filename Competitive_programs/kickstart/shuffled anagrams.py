@@ -51,3 +51,26 @@ for j in range(1, int(input()) + 1):
             break
     if not flag:
         print(f'Case #{j}: IMPOSSIBLE')
+
+"""
+Analysis
+Test set 1
+For this test set, since the length of S ≤8, we can try every permutation of characters and check whether there exists a permutation such that for all i, S[i]≠A[i]. To find every permutation, we can first convert the string to a character array. Then, we swap the first element with every other element and recursively find permutations of the rest of the string.
+
+This can be performed in O(N!), where N is the length of S.
+
+Test set 2
+For this test set, the above solution would exceed the time limits.
+
+The key observation here is that if a character exists more than ⌊N2⌋ times, then it's impossible to find such a permutation, because at least one position will have a letter that stays the same. Otherwise, we can sort the letters and keep track of the initial position of each letter.
+
+Let the new sorted letters be P. We can split the sorted letters into two halves, from index 0 to N2, P[0:N2], and from N2 to the end, P[N2:]. If N is odd, split P such that the second half has an extra letter, where the first half is 0 to ⌊N2⌋ and the second half is from ⌈N2⌉ to the end. Then, we put each character from the second half of the sorted letters P[i+(N2)] into the original position of the corresponding letter in the first half P[i]. Similarly, we put each character from the first half of the sorted letters P[i] into the original position of the corresponding letter in the second half P[i+(N2)]. Note that if N is odd, the second half of the sorted letters P[i+(N2)] will occupy the first ⌊N2⌋+1 spaces, while the original first half will occupy the last ⌊N2⌋ spaces, as shown in the example below. The letter orginally at P[N−1] will be in the middle of the array after the swap, replacing P[i+⌊N2⌋].
+
+
+Example solution.
+(https://codejam.googleapis.com/dashboard/get_file/AQj_6U3tHkpII-DiVV14qHDn4fs3dlv73yVYuZZdyLeS2FQrWl2Cply7Gn7jErvIy4gz1oG48SRyfrXDMojF3w/analysis_diagram.png)
+
+This works because we know that no more than half the characters are equal, and hence the character at P[i] cannot be equal to the letter at P[i+(N2)].
+
+This can be performed in O(NlogN), due to sorting. However, due to the limited size of the alphabet, we can actually sort even faster using a non-comparative sorting algorithm such as counting sort.
+"""
