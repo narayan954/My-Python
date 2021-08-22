@@ -35,7 +35,7 @@ In test case #1, tarts is a shuffled anagram of start as none of the letters in 
 import random
 import math
 
-for _ in range(int(input())):
+for j in range(1, int(input()) + 1):
     s = input().strip()
 
     for i in range(math.factorial(len(s))):
@@ -47,7 +47,7 @@ for _ in range(int(input())):
             if s[i] == temp[i]:
                 flag = 0
         if flag:
-            print(temp)
+            print(f'Case #{j}: {temp}')
             break
     if not flag:
-        print('IMPOSSIBLE')
+        print(f'Case #{j}: IMPOSSIBLE')
