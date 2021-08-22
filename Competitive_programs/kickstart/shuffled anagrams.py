@@ -69,7 +69,7 @@ Let the new sorted letters be P. We can split the sorted letters into two halves
 
 Example solution.
 """
-(https://codejam.googleapis.com/dashboard/get_file/AQj_6U3tHkpII-DiVV14qHDn4fs3dlv73yVYuZZdyLeS2FQrWl2Cply7Gn7jErvIy4gz1oG48SRyfrXDMojF3w/analysis_diagram.png)
+![image](https://user-images.githubusercontent.com/77617189/130346794-532d675d-abd0-4abe-a1ff-0fb3623989c4.png)
 """
 This works because we know that no more than half the characters are equal, and hence the character at P[i] cannot be equal to the letter at P[i+(N2)].
 
