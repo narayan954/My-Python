@@ -8,7 +8,7 @@ for j in range(1, t + 1):
     x, y, h = 0, 0, 0
     for i in s:
         a[ord(i) - 65] += 1
-        if i == 'A' or i == 'E' or i == 'O' or i == 'U' or i == 'I':
+        if i in 'AEIOU':
             x += 1
         else:
             y += 1
