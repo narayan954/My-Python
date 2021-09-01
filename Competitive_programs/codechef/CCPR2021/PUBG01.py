@@ -1,6 +1,6 @@
-n = int(input())
+players = int(input())
 prize = int(input())
 expense = 0
-for i in range(n):
-    expense += sum(map(int,input().split()))
-print((prize - expense)//n if expense<prize else 0)
+for i in range(players):
+    expense += sum(map(int, input().split()))
+print((prize - expense)//players if expense < prize else 0)
