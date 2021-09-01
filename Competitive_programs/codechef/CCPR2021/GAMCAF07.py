@@ -1,22 +1,38 @@
+# Codechef Campus code august -> Gaming cafe
+
 def findComputers(arr, dep, n):
     arr.sort()
     dep.sort()
-    
+
+    # computers_needed indicates
+    # number of computers
+    # needed at a time
     computers_needed = 1
     result = 1
     i = 1
     j = 0
 
-    while (i < n and j < n):
-        if (arr[i] <= dep[j]):
+    # Similar to merge in
+    # merge sort to process
+    # all events in sorted order
+    while i < n and j < n:
+
+        # If next event in sorted
+        # order is arrival,
+        # increment count of
+        # computers needed
+        if arr[i] <= dep[j]:
             computers_needed += 1
             i += 1
-            
-        elif (arr[i] > dep[j]):
+
+        # Else decrement count
+        # of computers needed
+        else:
             computers_needed -= 1
             j += 1
-            
-        if (computers_needed > result):
+
+        # Update result if needed
+        if computers_needed > result:
             result = computers_needed
 
     return result
