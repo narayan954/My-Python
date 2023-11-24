@@ -1,39 +1,48 @@
 import sys
 from pathlib import Path
 
+
+def delete_files_by_extension(extensions, path="."):
+    """Delete files with given extensions in the specified path."""
+    deleted_file_count = 0
+    log = ""
+
+    p = Path(path)
+    for ext in extensions:
+        file_list = list(p.rglob(f"*.{ext}"))
+
+        if not file_list:
+            print(f"NO {ext.upper()} FILES TO REMOVE.")
+            continue
+
+        print(f"Removing: {ext.upper()}")
+        for file in file_list:
+            if file.is_file():
+                file.unlink()
+                deleted_file_count += 1
+                print(file)
+                log += f"{file}\n"
+
+        print("\n", end="")
+
+    log += f"{deleted_file_count} FILES DELETED.\n"
+    return log, deleted_file_count
+
+
+def write_log(log, filename="delete_log.log"):
+    """Write the log to a file."""
+    if log:
+        with open(filename, "a") as log_file:
+            log_file.write(log)
+
+
 def main():
-    args = sys.argv[1:]
-    if len(args) > 0:
-        deleted_file_count = int()
-        log = str()
-
-        p = Path(".")
-        for ext in args:
-            file_list = list(p.rglob("*." + ext)) # creating list of files for each extension supplied by the user.
-
-            if not file_list:
-                print(f"NO {ext.upper()} FILES TO REMOVE.")
-                
-            else:
-                print(f"Removing: {ext.upper()}")
-                for file in file_list:
-                    f = Path(file)
-                    if f.is_file():
-                        f.unlink() # removing the file.
-                        deleted_file_count += 1 # increase deleted files count.
-                        print(file) # print deleted filename to the console.
-                        log +=  f"{file}\n" # appends deleted filename to the log string.
-                print("\n", end="")
-        log += f"{deleted_file_count} FILES DELETED.\n"
-
-        if deleted_file_count:
-            with open("delete_log.log", "a") as log_file:
-                try:
-                    log_file.write(log) # write the entire log string to a file.
-                except UnicodeEncodeError as err:
-                    print(f"Filename contains non-standard character. ({err})")
+    if len(sys.argv) > 1:
+        log, deleted_file_count = delete_files_by_extension(sys.argv[1:])
+        write_log(log)
     else:
         sys.exit("NO ARGUMENT PASSED.")
+
 
 if __name__ == "__main__":
     main()
